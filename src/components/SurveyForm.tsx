@@ -84,10 +84,10 @@ export default function SurveyForm() {
 
   if (submitted) {
     return (
-      <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4 ${fontClass}`}>
-        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg text-center">
+      <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-amber-50 p-4 ${fontClass}`}>
+        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg text-center border-t-4 border-amber-500">
           <div className="text-5xl mb-4">🎉</div>
-          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-blue-700 mb-3">
+          <h2 className="text-2xl font-bold text-blue-900 mb-3">
             {t("thank.title")}
           </h2>
           <p className="text-gray-600 mb-4">
@@ -105,7 +105,7 @@ export default function SurveyForm() {
   const likertSectionIndex = step - 2; // steps 2..10 are likert sections
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-green-50 to-blue-50 ${fontClass}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-amber-50 ${fontClass}`}>
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Language Selector */}
         <div className="mb-4">
@@ -114,7 +114,7 @@ export default function SurveyForm() {
 
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-blue-700 leading-tight">
+          <h1 className="text-lg md:text-xl font-bold text-blue-900 leading-tight">
             {t("header.title")}
           </h1>
           <p className="text-xs text-gray-500 mt-1">
@@ -124,7 +124,7 @@ export default function SurveyForm() {
 
         <ProgressBar current={step} total={TOTAL_STEPS} />
 
-        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-4">
+        <div className="bg-white rounded-2xl shadow-lg p-6 md:p-8 mt-4 border-t-4 border-amber-500">
           {/* Step 0: Consent & Screening */}
           {step === 0 && (
             <ConsentStep data={data} update={update} onNext={next} />

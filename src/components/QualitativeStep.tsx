@@ -35,7 +35,7 @@ export default function QualitativeStep({
       <h2 className="text-xl font-bold text-gray-800 mb-1">
         {t("oe.title")}
       </h2>
-      <p className="text-sm text-teal-700 font-medium mb-1">
+      <p className="text-sm text-amber-600 font-medium mb-1">
         {t("oe.subtitle")}
       </p>
       <p className="text-xs text-red-500 font-semibold mb-3">
@@ -51,7 +51,7 @@ export default function QualitativeStep({
             key={q.code}
             className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm"
           >
-            <legend className="font-bold text-teal-700 text-sm px-1">
+            <legend className="font-bold text-blue-900 text-sm px-1">
               {q.code.toUpperCase()} — {t("oe." + q.code + ".label")}
               <span className="text-red-500 ml-1">*</span>
             </legend>
@@ -66,8 +66,8 @@ export default function QualitativeStep({
                     className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all
                       ${
                         selected
-                          ? "border-teal-500 bg-gradient-to-r from-green-50 to-blue-50 shadow-sm"
-                          : "border-gray-200 bg-white hover:border-teal-300"
+                          ? "border-amber-500 bg-amber-50 shadow-sm"
+                          : "border-gray-200 bg-white hover:border-blue-300"
                       }`}
                   >
                     <input
@@ -76,7 +76,7 @@ export default function QualitativeStep({
                       value={opt}
                       checked={selected}
                       onChange={() => update({ [q.code]: opt, [q.code + "_other"]: "" })}
-                      className="mt-0.5 accent-teal-600"
+                      className="mt-0.5 accent-amber-600"
                     />
                     <span className="text-sm text-gray-800 font-medium">
                       {t("mc." + q.code + "." + opt)}
@@ -90,8 +90,8 @@ export default function QualitativeStep({
                 className={`flex items-start gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all
                   ${
                     data[q.code] === "other"
-                      ? "border-teal-500 bg-gradient-to-r from-green-50 to-blue-50 shadow-sm"
-                      : "border-gray-200 bg-white hover:border-teal-300"
+                      ? "border-amber-500 bg-amber-50 shadow-sm"
+                      : "border-gray-200 bg-white hover:border-blue-300"
                   }`}
               >
                 <input
@@ -100,7 +100,7 @@ export default function QualitativeStep({
                   value="other"
                   checked={data[q.code] === "other"}
                   onChange={() => update({ [q.code]: "other" })}
-                  className="mt-0.5 accent-teal-600"
+                  className="mt-0.5 accent-amber-600"
                 />
                 <span className="text-sm text-gray-800 font-medium">
                   {t("mc.other")}
@@ -115,7 +115,7 @@ export default function QualitativeStep({
                   placeholder={t("mc.other.placeholder")}
                   maxLength={500}
                   className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm ms-8
-                             focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+                             focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
                 />
               )}
             </div>
@@ -133,8 +133,8 @@ export default function QualitativeStep({
         <button
           onClick={onSubmit}
           disabled={submitting || !allAnswered}
-          className="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg font-bold text-lg
-                     hover:from-green-700 hover:to-blue-700 disabled:opacity-50 transition-all shadow-md"
+          className="px-8 py-3 bg-blue-900 text-amber-400 rounded-lg font-bold text-lg
+                     hover:bg-blue-950 disabled:opacity-50 transition-all shadow-md"
         >
           {submitting ? t("submitting") : t("submit")}
         </button>
