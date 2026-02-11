@@ -25,16 +25,16 @@ function RadioOption({
   return (
     <label
       className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border-2 cursor-pointer transition-all
-        ${checked ? "border-green-600 bg-green-50 shadow-sm" : "border-gray-300 bg-white hover:border-green-400 hover:bg-green-50/50"}`}
+        ${checked ? "border-teal-500 bg-gradient-to-r from-green-50 to-blue-50 shadow-sm" : "border-gray-300 bg-white hover:border-teal-400 hover:bg-teal-50/50"}`}
     >
       <input
         type="radio"
         name={name}
         checked={checked}
         onChange={onChange}
-        className="w-5 h-5 accent-green-600 shrink-0"
+        className="w-5 h-5 accent-teal-600 shrink-0"
       />
-      <span className={`text-sm font-medium ${checked ? "text-green-800" : "text-gray-700"}`}>
+      <span className={`text-sm font-medium ${checked ? "text-teal-800" : "text-gray-700"}`}>
         {label}
       </span>
     </label>
@@ -53,15 +53,15 @@ function CheckOption({
   return (
     <label
       className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border-2 cursor-pointer transition-all
-        ${checked ? "border-green-600 bg-green-50 shadow-sm" : "border-gray-300 bg-white hover:border-green-400 hover:bg-green-50/50"}`}
+        ${checked ? "border-teal-500 bg-gradient-to-r from-green-50 to-blue-50 shadow-sm" : "border-gray-300 bg-white hover:border-teal-400 hover:bg-teal-50/50"}`}
     >
       <input
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="w-5 h-5 accent-green-600 rounded shrink-0"
+        className="w-5 h-5 accent-teal-600 rounded shrink-0"
       />
-      <span className={`text-sm font-medium ${checked ? "text-green-800" : "text-gray-700"}`}>
+      <span className={`text-sm font-medium ${checked ? "text-teal-800" : "text-gray-700"}`}>
         {label}
       </span>
     </label>
@@ -136,7 +136,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
               placeholder={t("dem4.placeholder")}
               value={(data.dem4_region_other as string) || ""}
               onChange={(e) => update({ dem4_region_other: e.target.value })}
-              className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
             />
           )}
         </fieldset>
@@ -163,7 +163,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
             placeholder={t("dem7.placeholder")}
             value={(data.dem7_other as string) || ""}
             onChange={(e) => update({ dem7_other: e.target.value })}
-            className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
           />
         )}
       </fieldset>
@@ -178,8 +178,8 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
         <button
           onClick={onNext}
           disabled={!canProceed}
-          className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
-                     hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md"
+          className="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg font-bold text-base
+                     hover:from-green-700 hover:to-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md"
         >
           {t("next")}
         </button>

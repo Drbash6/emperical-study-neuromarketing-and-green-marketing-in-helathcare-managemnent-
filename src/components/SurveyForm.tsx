@@ -87,7 +87,7 @@ export default function SurveyForm() {
       <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4 ${fontClass}`}>
         <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg text-center">
           <div className="text-5xl mb-4">🎉</div>
-          <h2 className="text-2xl font-bold text-green-700 mb-3">
+          <h2 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-blue-700 mb-3">
             {t("thank.title")}
           </h2>
           <p className="text-gray-600 mb-4">
@@ -114,7 +114,7 @@ export default function SurveyForm() {
 
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-lg md:text-xl font-bold text-green-800 leading-tight">
+          <h1 className="text-lg md:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-700 to-blue-700 leading-tight">
             {t("header.title")}
           </h1>
           <p className="text-xs text-gray-500 mt-1">

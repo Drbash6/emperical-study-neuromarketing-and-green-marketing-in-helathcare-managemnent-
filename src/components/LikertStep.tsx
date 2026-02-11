@@ -32,7 +32,7 @@ export default function LikertStep({
     <div>
       <h2 className="text-xl font-bold text-gray-800 mb-1">{sectionTitle}</h2>
       {sectionSubtitle && (
-        <p className="text-sm text-green-700 font-medium mb-3">
+        <p className="text-sm text-teal-700 font-medium mb-3">
           {sectionSubtitle}
         </p>
       )}
@@ -49,7 +49,7 @@ export default function LikertStep({
             className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm"
           >
             <p className="text-sm text-gray-800 mb-3">
-              <span className="font-bold text-green-700">
+              <span className="font-bold text-teal-700">
                 {item.code.toUpperCase()}
                 {item.reverse && " (R)"}
               </span>{" "}
@@ -66,8 +66,8 @@ export default function LikertStep({
                     className={`px-4 py-2 rounded-lg text-sm font-semibold border-2 transition-all
                       ${
                         selected
-                          ? "bg-green-600 text-white border-green-600 shadow-md scale-105"
-                          : "bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:bg-green-50"
+                          ? "bg-gradient-to-r from-green-600 to-blue-600 text-white border-teal-600 shadow-md scale-105"
+                          : "bg-white text-gray-700 border-gray-300 hover:border-teal-500 hover:bg-teal-50"
                       }`}
                   >
                     {opt.value} - {t("likert." + opt.value)}
@@ -89,8 +89,8 @@ export default function LikertStep({
         <button
           onClick={onNext}
           disabled={!allAnswered}
-          className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
-                     hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md"
+          className="px-8 py-3 bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg font-bold text-base
+                     hover:from-green-700 hover:to-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-md"
         >
           {t("next")}
         </button>
