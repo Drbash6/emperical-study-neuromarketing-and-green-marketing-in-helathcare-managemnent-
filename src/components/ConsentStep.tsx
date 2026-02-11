@@ -61,7 +61,7 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       </div>
 
       <fieldset className="mb-6">
-        <legend className="font-semibold text-gray-800 mb-3 text-base">{t("consent.legend")}</legend>
+        <legend className="font-semibold text-gray-800 mb-3 text-base">{t("consent.legend")}<span className="text-red-500 ml-1">*</span></legend>
         <div className="space-y-2">
           <RadioCard name="consent" checked={consented} onChange={() => update({ consented: "yes" })} label={t("consent.yes")} />
           <RadioCard name="consent" checked={data.consented === "no"} onChange={() => update({ consented: "no" })} label={t("consent.no")} />
@@ -76,7 +76,7 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       {/* SQ1 */}
       <fieldset className="mb-6">
         <legend className="font-semibold text-gray-800 mb-3 text-base">
-          {t("sq1.q")}
+          {t("sq1.q")}<span className="text-red-500 ml-1">*</span>
         </legend>
         <div className="space-y-2">
           <RadioCard name="sq1" checked={sq1 === "yes"} onChange={() => update({ sq1_purchased: "yes" })} label={t("sq1.yes")} />
@@ -92,7 +92,7 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       {/* SQ2 */}
       <fieldset className="mb-6">
         <legend className="font-semibold text-gray-800 mb-3 text-base">
-          {t("sq2.q")}
+          {t("sq2.q")}<span className="text-red-500 ml-1">*</span>
         </legend>
         <div className="space-y-2">
           {([

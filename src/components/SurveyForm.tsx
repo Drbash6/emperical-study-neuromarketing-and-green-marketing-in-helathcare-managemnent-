@@ -56,9 +56,13 @@ export default function SurveyForm() {
         }
       }
 
-      // Open-ended
+      // Multiple-choice (formerly open-ended)
       for (const q of OPEN_ENDED_QUESTIONS) {
-        row[q.code] = data[q.code] || null;
+        if (data[q.code] === "other") {
+          row[q.code] = "other: " + ((data[q.code + "_other"] as string) || "");
+        } else {
+          row[q.code] = data[q.code] || null;
+        }
       }
 
       const { error: dbError } = await getSupabase()
@@ -104,7 +108,7 @@ export default function SurveyForm() {
     <div className={`min-h-screen bg-gradient-to-br from-green-50 to-blue-50 ${fontClass}`}>
       <div className="max-w-3xl mx-auto px-4 py-6">
         {/* Language Selector */}
-        <div className="flex justify-center mb-4">
+        <div className="mb-4">
           <LanguageSelector />
         </div>
 

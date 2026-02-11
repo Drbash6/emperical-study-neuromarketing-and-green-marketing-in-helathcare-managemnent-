@@ -90,7 +90,8 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">{t("dem.title")}</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-1">{t("dem.title")}</h2>
+      <p className="text-xs text-red-500 font-semibold mb-4">{t("mandatory.note")}</p>
 
       {/* Single-select questions */}
       {(
@@ -104,7 +105,14 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
         ] as const
       ).map(([key, def]) => (
         <fieldset key={key} className="mb-6">
-          <legend className="font-semibold text-gray-800 mb-3 text-base">{t(key + ".label")}</legend>
+          <legend className="font-semibold text-gray-800 mb-2 text-base">
+            {t(key + ".label")}<span className="text-red-500 ml-1">*</span>
+          </legend>
+          {key === "dem5_income" && (
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3 mb-3 text-sm text-gray-700">
+              {t("income.instruction")}
+            </div>
+          )}
           <div className="space-y-2">
             {def.options.map((opt) => (
               <RadioOption
@@ -137,7 +145,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
       {/* Multi-select: products */}
       <fieldset className="mb-6">
         <legend className="font-semibold text-gray-800 mb-3 text-base">
-          {t("dem7_products.label")}
+          {t("dem7_products.label")}<span className="text-red-500 ml-1">*</span>
         </legend>
         <div className="space-y-2">
           {DEMOGRAPHICS.products.options.map((opt) => (

@@ -54,6 +54,7 @@ export default function LikertStep({
                 {item.reverse && " (R)"}
               </span>{" "}
               {t("item." + item.code)}
+              <span className="text-red-500 ml-1">*</span>
             </p>
             <div className="flex flex-wrap gap-2">
               {LIKERT_OPTIONS.map((opt) => {

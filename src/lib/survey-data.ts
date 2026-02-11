@@ -57,13 +57,8 @@ export const DEMOGRAPHICS = {
   },
   income: {
     label:
-      "What is your approximate monthly household income relative to your national average?",
-    options: [
-      "Below national average",
-      "Around national average",
-      "Above national average",
-      "Prefer not to say",
-    ],
+      "On a 10-step ladder of economic standing in your country (1 = lowest, 10 = highest), where would you place your household?",
+    options: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
   },
   frequency: {
     label: "How often do you purchase pharmaceutical or nutraceutical products?",
@@ -208,6 +203,7 @@ export interface OpenEndedQuestion {
   code: string;
   label: string;
   question: string;
+  options: string[];
 }
 
 export const OPEN_ENDED_QUESTIONS: OpenEndedQuestion[] = [
@@ -215,48 +211,56 @@ export const OPEN_ENDED_QUESTIONS: OpenEndedQuestion[] = [
     code: "oe1",
     label: "Eco-label Perception",
     question:
-      'When you see an eco-label or environmental certification (e.g., "Organic," "Eco-Friendly," "Sustainably Sourced") on a vitamin, supplement, or medicine, what is your immediate reaction? Do you trust it? Why or why not?',
+      "When you see an eco-label or environmental certification on a pharmaceutical/nutraceutical product, your immediate reaction is:",
+    options: ["a", "b", "c", "d", "e"],
   },
   {
     code: "oe2",
     label: "Greenwashing Experience",
     question:
-      "Have you ever suspected that a pharmaceutical or supplement company was exaggerating or faking its environmental claims (greenwashing)? Describe the situation and how it affected your purchasing behavior.",
+      "Regarding your experience with potentially misleading environmental claims (greenwashing) in the pharmaceutical/supplement industry:",
+    options: ["a", "b", "c", "d", "e"],
   },
   {
     code: "oe3",
     label: "Health vs. Green Trade-off",
     question:
-      "When choosing a medicine, vitamin, or supplement, how do you balance health effectiveness and safety against environmental sustainability? If you had to choose one over the other, which would you prioritize and why?",
+      "When choosing between health effectiveness and environmental sustainability in pharmaceutical/nutraceutical products:",
+    options: ["a", "b", "c", "d", "e"],
   },
   {
     code: "oe4",
     label: "Trust Formation",
     question:
-      "What specific factors make you trust — or distrust — a pharmaceutical/nutraceutical brand's green claims? (e.g., evidence, certifications, brand reputation, personal experience, social media reviews)",
+      "The most important factor in making you trust a pharmaceutical/nutraceutical brand's green claims is:",
+    options: ["a", "b", "c", "d", "e", "f"],
   },
   {
     code: "oe5",
     label: "Advertising Response",
     question:
-      "Think about a recent advertisement or social media post for a health supplement or medicine that included a green/sustainability message. What caught your attention? What emotional or rational response did it trigger in you?",
+      "When you encounter a green/sustainability message in pharmaceutical/health product advertising:",
+    options: ["a", "b", "c", "d", "e"],
   },
   {
     code: "oe6",
     label: "Willingness to Pay",
     question:
-      "Would you pay 10-20% more for a vitamin, supplement, or OTC medicine that has credible environmental certifications? Why or why not? Under what conditions would you be willing — or unwilling — to pay this premium?",
+      "Regarding paying a premium for pharmaceutical/nutraceutical products with credible environmental certifications:",
+    options: ["a", "b", "c", "d", "e"],
   },
   {
     code: "oe7",
     label: "AI and Future of Green Health Products",
     question:
-      "How do you think artificial intelligence (AI) could help you make better decisions about the environmental authenticity of pharmaceutical/supplement products?",
+      "How do you think AI could help with decisions about green pharmaceutical/nutraceutical products?",
+    options: ["a", "b", "c", "d", "e"],
   },
   {
     code: "oe8",
     label: "Cultural & Regional Lens",
     question:
-      "Do you believe your cultural background, country of residence, or regional healthcare norms influence how you perceive green claims on medicines and supplements? How so?",
+      "Regarding how your cultural background or region influences your perception of green claims:",
+    options: ["a", "b", "c", "d", "e"],
   },
 ];

@@ -6,22 +6,27 @@ export default function LanguageSelector() {
   const { lang, setLang } = useI18n();
 
   return (
-    <div className="flex items-center gap-1.5">
-      {LANGUAGES.map((l) => (
-        <button
-          key={l.code}
-          onClick={() => setLang(l.code as Lang)}
-          className={`px-3 py-1.5 rounded-lg text-sm font-medium border-2 transition-all
-            ${
-              lang === l.code
-                ? "border-green-600 bg-green-50 text-green-800 shadow-sm"
-                : "border-gray-200 bg-white text-gray-600 hover:border-green-400"
-            }`}
-        >
-          <span className="mr-1">{l.flag}</span>
-          {l.label}
-        </button>
-      ))}
+    <div className="w-full rounded-xl bg-gradient-to-r from-green-50 via-emerald-50 to-teal-50 border-2 border-green-300 p-4 shadow-md">
+      <p className="text-center text-xs font-semibold text-green-700 uppercase tracking-widest mb-3">
+        🌐 Choose your language · اختر لغتك · Sprache wählen
+      </p>
+      <div className="flex items-center justify-center gap-3 flex-wrap">
+        {LANGUAGES.map((l) => (
+          <button
+            key={l.code}
+            onClick={() => setLang(l.code as Lang)}
+            className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-base font-bold border-2 transition-all duration-200
+              ${
+                lang === l.code
+                  ? "border-green-600 bg-green-600 text-white shadow-lg scale-105 ring-2 ring-green-300"
+                  : "border-green-300 bg-white text-green-800 hover:bg-green-100 hover:border-green-500 hover:shadow-md"
+              }`}
+          >
+            <span className="text-xl">{l.flag}</span>
+            {l.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
