@@ -1,6 +1,7 @@
 "use client";
 
 import { type SurveyData } from "./SurveyForm";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   data: SurveyData;
@@ -39,6 +40,7 @@ function RadioCard({
 }
 
 export default function ConsentStep({ data, update, onNext }: Props) {
+  const { t } = useI18n();
   const consented = data.consented === "yes";
   const sq1 = data.sq1_purchased as string | undefined;
   const sq2 = data.sq2_noticed as string | undefined;
@@ -48,40 +50,25 @@ export default function ConsentStep({ data, update, onNext }: Props) {
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-800 mb-4">
-        Informed Consent & Screening
+        {t("consent.title")}
       </h2>
 
       {/* Consent */}
       <div className="bg-green-50 border-2 border-green-300 rounded-lg p-4 mb-6 text-sm text-gray-700 leading-relaxed">
-        <p>
-          You are invited to participate in an academic research study examining
-          how consumers perceive and respond to environmental sustainability
-          claims on <strong>pharmaceutical and nutraceutical products</strong>{" "}
-          (e.g., vitamins, supplements, over-the-counter medicines, herbal
-          health products).
-        </p>
-        <p className="mt-2">
-          This study is part of a <strong>PhD research project</strong>. Your
-          participation is entirely <strong>voluntary, anonymous, and confidential</strong>.
-          No personally identifiable information is collected. You may withdraw
-          at any time without consequence. The survey takes approximately{" "}
-          <strong>12–15 minutes</strong>.
-        </p>
-        <p className="mt-2">
-          By proceeding, you confirm you are <strong>18 years or older</strong>{" "}
-          and consent to participate.
-        </p>
+        <p dangerouslySetInnerHTML={{ __html: t("consent.p1") }} />
+        <p className="mt-2" dangerouslySetInnerHTML={{ __html: t("consent.p2") }} />
+        <p className="mt-2" dangerouslySetInnerHTML={{ __html: t("consent.p3") }} />
       </div>
 
       <fieldset className="mb-6">
-        <legend className="font-semibold text-gray-800 mb-3 text-base">Consent</legend>
+        <legend className="font-semibold text-gray-800 mb-3 text-base">{t("consent.legend")}</legend>
         <div className="space-y-2">
-          <RadioCard name="consent" checked={consented} onChange={() => update({ consented: "yes" })} label="I consent to participate" />
-          <RadioCard name="consent" checked={data.consented === "no"} onChange={() => update({ consented: "no" })} label="I do not consent" />
+          <RadioCard name="consent" checked={consented} onChange={() => update({ consented: "yes" })} label={t("consent.yes")} />
+          <RadioCard name="consent" checked={data.consented === "no"} onChange={() => update({ consented: "no" })} label={t("consent.no")} />
         </div>
         {data.consented === "no" && (
           <p className="text-red-600 text-sm mt-2 font-medium bg-red-50 border border-red-200 rounded-lg p-2">
-            You must consent to participate in this study.
+            {t("consent.error")}
           </p>
         )}
       </fieldset>
@@ -89,17 +76,15 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       {/* SQ1 */}
       <fieldset className="mb-6">
         <legend className="font-semibold text-gray-800 mb-3 text-base">
-          SQ1. Have you purchased any pharmaceutical or nutraceutical product
-          (e.g., over-the-counter medicine, vitamins, dietary supplements,
-          herbal health products, probiotics) in the past 12 months?
+          {t("sq1.q")}
         </legend>
         <div className="space-y-2">
-          <RadioCard name="sq1" checked={sq1 === "yes"} onChange={() => update({ sq1_purchased: "yes" })} label="Yes" />
-          <RadioCard name="sq1" checked={sq1 === "no"} onChange={() => update({ sq1_purchased: "no" })} label="No" />
+          <RadioCard name="sq1" checked={sq1 === "yes"} onChange={() => update({ sq1_purchased: "yes" })} label={t("sq1.yes")} />
+          <RadioCard name="sq1" checked={sq1 === "no"} onChange={() => update({ sq1_purchased: "no" })} label={t("sq1.no")} />
         </div>
         {sq1 === "no" && (
           <p className="text-red-600 text-sm mt-2 font-medium bg-red-50 border border-red-200 rounded-lg p-2">
-            This survey requires participants who have purchased these products in the past 12 months.
+            {t("sq1.error")}
           </p>
         )}
       </fieldset>
@@ -107,23 +92,20 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       {/* SQ2 */}
       <fieldset className="mb-6">
         <legend className="font-semibold text-gray-800 mb-3 text-base">
-          SQ2. Have you ever noticed environmental or sustainability claims
-          (e.g., eco-labels, &quot;eco-friendly,&quot; &quot;sustainably
-          sourced,&quot; green packaging) on any pharmaceutical or nutraceutical
-          product?
+          {t("sq2.q")}
         </legend>
         <div className="space-y-2">
-          {[
-            { value: "yes", label: "Yes" },
-            { value: "not_sure", label: "Not sure, but I may have" },
-            { value: "no", label: "No, never (please answer based on your general expectations)" },
-          ].map((opt) => (
+          {([
+            { value: "yes", key: "sq2.yes" },
+            { value: "not_sure", key: "sq2.not_sure" },
+            { value: "no", key: "sq2.no_never" },
+          ] as const).map((opt) => (
             <RadioCard
               key={opt.value}
               name="sq2"
               checked={sq2 === opt.value}
               onChange={() => update({ sq2_noticed: opt.value })}
-              label={opt.label}
+              label={t(opt.key)}
             />
           ))}
         </div>
@@ -137,7 +119,7 @@ export default function ConsentStep({ data, update, onNext }: Props) {
                      hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed
                      transition-colors shadow-md"
         >
-          Next →
+          {t("next")}
         </button>
       </div>
     </div>

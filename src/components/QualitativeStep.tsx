@@ -2,6 +2,7 @@
 
 import { OPEN_ENDED_QUESTIONS } from "@/lib/survey-data";
 import { type SurveyData } from "./SurveyForm";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   data: SurveyData;
@@ -18,18 +19,18 @@ export default function QualitativeStep({
   onSubmit,
   submitting,
 }: Props) {
+  const { t } = useI18n();
+
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-800 mb-1">
-        Part B: Your Thoughts & Experiences
+        {t("oe.title")}
       </h2>
       <p className="text-sm text-green-700 font-medium mb-3">
-        Open-Ended Questions (Optional but highly valued)
+        {t("oe.subtitle")}
       </p>
       <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3 mb-5 text-sm text-gray-700">
-        Please share your personal thoughts and experiences in your own words.
-        There are no right or wrong answers. Write as much or as little as you
-        wish. Your responses are anonymous and used for academic research only.
+        {t("oe.instruction")}
       </div>
 
       <div className="space-y-6">
@@ -40,16 +41,16 @@ export default function QualitativeStep({
           >
             <label className="block mb-2">
               <span className="font-bold text-green-700 text-sm">
-                {q.code.toUpperCase()} — {q.label}
+                {q.code.toUpperCase()} — {t("oe." + q.code + ".label")}
               </span>
-              <p className="text-sm text-gray-700 mt-1">{q.question}</p>
+              <p className="text-sm text-gray-700 mt-1">{t("oe." + q.code + ".q")}</p>
             </label>
             <textarea
               value={(data[q.code] as string) || ""}
               onChange={(e) => update({ [q.code]: e.target.value })}
               rows={3}
               maxLength={2000}
-              placeholder="Your answer (optional)..."
+              placeholder={t("oe.placeholder")}
               className="w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm
                          focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 resize-y"
             />
@@ -62,7 +63,7 @@ export default function QualitativeStep({
           onClick={onPrev}
           className="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
         >
-          ← Back
+          {t("back")}
         </button>
         <button
           onClick={onSubmit}
@@ -70,7 +71,7 @@ export default function QualitativeStep({
           className="px-8 py-3 bg-green-700 text-white rounded-lg font-bold text-lg
                      hover:bg-green-800 disabled:opacity-50 transition-colors shadow-md"
         >
-          {submitting ? "Submitting..." : "Submit Survey"}
+          {submitting ? t("submitting") : t("submit")}
         </button>
       </div>
     </div>

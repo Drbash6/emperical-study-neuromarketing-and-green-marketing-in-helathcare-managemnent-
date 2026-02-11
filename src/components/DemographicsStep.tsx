@@ -2,6 +2,7 @@
 
 import { DEMOGRAPHICS } from "@/lib/survey-data";
 import { type SurveyData } from "./SurveyForm";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   data: SurveyData;
@@ -68,6 +69,7 @@ function CheckOption({
 }
 
 export default function DemographicsStep({ data, update, onNext, onPrev }: Props) {
+  const { t } = useI18n();
   const products = (data.dem7_products as string[] | undefined) || [];
 
   const canProceed =
@@ -88,7 +90,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Demographics</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">{t("dem.title")}</h2>
 
       {/* Single-select questions */}
       {(
@@ -102,7 +104,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
         ] as const
       ).map(([key, def]) => (
         <fieldset key={key} className="mb-6">
-          <legend className="font-semibold text-gray-800 mb-3 text-base">{def.label}</legend>
+          <legend className="font-semibold text-gray-800 mb-3 text-base">{t(key + ".label")}</legend>
           <div className="space-y-2">
             {def.options.map((opt) => (
               <RadioOption
@@ -116,14 +118,14 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
                   }
                   update(upd);
                 }}
-                label={opt}
+                label={t("opt." + opt)}
               />
             ))}
           </div>
           {key === "dem4_region" && data.dem4_region === "Other" && (
             <input
               type="text"
-              placeholder="Please specify your region"
+              placeholder={t("dem4.placeholder")}
               value={(data.dem4_region_other as string) || ""}
               onChange={(e) => update({ dem4_region_other: e.target.value })}
               className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
@@ -135,7 +137,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
       {/* Multi-select: products */}
       <fieldset className="mb-6">
         <legend className="font-semibold text-gray-800 mb-3 text-base">
-          {DEMOGRAPHICS.products.label}
+          {t("dem7_products.label")}
         </legend>
         <div className="space-y-2">
           {DEMOGRAPHICS.products.options.map((opt) => (
@@ -143,14 +145,14 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
               key={opt}
               checked={products.includes(opt)}
               onChange={() => toggleProduct(opt)}
-              label={opt}
+              label={t("opt." + opt)}
             />
           ))}
         </div>
         {products.includes("Other") && (
           <input
             type="text"
-            placeholder="Please specify"
+            placeholder={t("dem7.placeholder")}
             value={(data.dem7_other as string) || ""}
             onChange={(e) => update({ dem7_other: e.target.value })}
             className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
@@ -163,7 +165,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
           onClick={onPrev}
           className="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
         >
-          ← Back
+          {t("back")}
         </button>
         <button
           onClick={onNext}
@@ -171,7 +173,7 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
           className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
                      hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md"
         >
-          Next →
+          {t("next")}
         </button>
       </div>
     </div>

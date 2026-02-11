@@ -6,8 +6,10 @@ import DemographicsStep from "@/components/DemographicsStep";
 import LikertStep from "@/components/LikertStep";
 import QualitativeStep from "@/components/QualitativeStep";
 import ProgressBar from "@/components/ProgressBar";
+import LanguageSelector from "@/components/LanguageSelector";
 import { SURVEY_SECTIONS, OPEN_ENDED_QUESTIONS } from "@/lib/survey-data";
 import { getSupabase } from "@/lib/supabase";
+import { useI18n } from "@/lib/i18n";
 
 // Steps: consent, demographics, 9 likert sections, qualitative
 const TOTAL_STEPS = 1 + 1 + SURVEY_SECTIONS.length + 1; // 12
@@ -15,6 +17,7 @@ const TOTAL_STEPS = 1 + 1 + SURVEY_SECTIONS.length + 1; // 12
 export type SurveyData = Record<string, string | number | string[]>;
 
 export default function SurveyForm() {
+  const { t, lang } = useI18n();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<SurveyData>({});
   const [submitting, setSubmitting] = useState(false);
@@ -72,21 +75,22 @@ export default function SurveyForm() {
     }
   };
 
+  // Arabic-aware font class
+  const fontClass = lang === "ar" ? "font-[var(--font-noto-arabic)]" : "";
+
   if (submitted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4">
+      <div className={`min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-blue-50 p-4 ${fontClass}`}>
         <div className="bg-white rounded-2xl shadow-lg p-8 max-w-lg text-center">
           <div className="text-5xl mb-4">🎉</div>
           <h2 className="text-2xl font-bold text-green-700 mb-3">
-            Thank You for Your Participation!
+            {t("thank.title")}
           </h2>
           <p className="text-gray-600 mb-4">
-            Your response has been recorded successfully. Your input contributes
-            to important research on green marketing and consumer behavior in the
-            pharmaceutical and nutraceutical sector.
+            {t("thank.text")}
           </p>
           <p className="text-sm text-gray-400">
-            This study is part of a PhD research project aligned with SDG-3.
+            {t("thank.sub")}
           </p>
         </div>
       </div>
@@ -97,15 +101,20 @@ export default function SurveyForm() {
   const likertSectionIndex = step - 2; // steps 2..10 are likert sections
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <div className={`min-h-screen bg-gradient-to-br from-green-50 to-blue-50 ${fontClass}`}>
       <div className="max-w-3xl mx-auto px-4 py-6">
+        {/* Language Selector */}
+        <div className="flex justify-center mb-4">
+          <LanguageSelector />
+        </div>
+
         {/* Header */}
         <div className="text-center mb-6">
           <h1 className="text-lg md:text-xl font-bold text-green-800 leading-tight">
-            Green Marketing & Pharmaceutical / Nutraceutical Products
+            {t("header.title")}
           </h1>
           <p className="text-xs text-gray-500 mt-1">
-            PhD Research Survey — Mixed-Method Empirical Study
+            {t("header.subtitle")}
           </p>
         </div>
 
@@ -155,8 +164,7 @@ export default function SurveyForm() {
         </div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          All responses are anonymous and confidential. No personally
-          identifiable information is collected.
+          {t("footer")}
         </p>
       </div>
     </div>

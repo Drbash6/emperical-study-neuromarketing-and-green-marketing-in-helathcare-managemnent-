@@ -2,6 +2,7 @@
 
 import { LIKERT_OPTIONS, type SurveySection } from "@/lib/survey-data";
 import { type SurveyData } from "./SurveyForm";
+import { useI18n } from "@/lib/i18n";
 
 interface Props {
   section: SurveySection;
@@ -18,21 +19,26 @@ export default function LikertStep({
   onNext,
   onPrev,
 }: Props) {
+  const { t } = useI18n();
   const allAnswered = section.items.every(
     (item) => data[item.code] !== undefined && data[item.code] !== ""
   );
 
+  const sectionTitle = t("section." + section.id + ".title");
+  const sectionSubtitle = t("section." + section.id + ".subtitle");
+  const sectionInstruction = t("section." + section.id + ".instruction");
+
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-800 mb-1">{section.title}</h2>
-      {section.subtitle && (
+      <h2 className="text-xl font-bold text-gray-800 mb-1">{sectionTitle}</h2>
+      {sectionSubtitle && (
         <p className="text-sm text-green-700 font-medium mb-3">
-          {section.subtitle}
+          {sectionSubtitle}
         </p>
       )}
-      {section.instruction && (
+      {sectionInstruction && (
         <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3 mb-5 text-sm text-gray-700">
-          {section.instruction}
+          {sectionInstruction}
         </div>
       )}
 
@@ -47,7 +53,7 @@ export default function LikertStep({
                 {item.code.toUpperCase()}
                 {item.reverse && " (R)"}
               </span>{" "}
-              {item.text}
+              {t("item." + item.code)}
             </p>
             <div className="flex flex-wrap gap-2">
               {LIKERT_OPTIONS.map((opt) => {
@@ -63,7 +69,7 @@ export default function LikertStep({
                           : "bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:bg-green-50"
                       }`}
                   >
-                    {opt.value} - {opt.label}
+                    {opt.value} - {t("likert." + opt.value)}
                   </button>
                 );
               })}
@@ -77,7 +83,7 @@ export default function LikertStep({
           onClick={onPrev}
           className="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
         >
-          ← Back
+          {t("back")}
         </button>
         <button
           onClick={onNext}
@@ -85,7 +91,7 @@ export default function LikertStep({
           className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
                      hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md"
         >
-          Next →
+          {t("next")}
         </button>
       </div>
     </div>
