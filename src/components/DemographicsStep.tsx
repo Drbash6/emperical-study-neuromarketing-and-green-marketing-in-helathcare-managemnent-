@@ -10,6 +10,63 @@ interface Props {
   onPrev: () => void;
 }
 
+function RadioOption({
+  name,
+  checked,
+  onChange,
+  label,
+}: {
+  name: string;
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+}) {
+  return (
+    <label
+      className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border-2 cursor-pointer transition-all
+        ${checked ? "border-green-600 bg-green-50 shadow-sm" : "border-gray-300 bg-white hover:border-green-400 hover:bg-green-50/50"}`}
+    >
+      <input
+        type="radio"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className="w-5 h-5 accent-green-600 shrink-0"
+      />
+      <span className={`text-sm font-medium ${checked ? "text-green-800" : "text-gray-700"}`}>
+        {label}
+      </span>
+    </label>
+  );
+}
+
+function CheckOption({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+}) {
+  return (
+    <label
+      className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border-2 cursor-pointer transition-all
+        ${checked ? "border-green-600 bg-green-50 shadow-sm" : "border-gray-300 bg-white hover:border-green-400 hover:bg-green-50/50"}`}
+    >
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="w-5 h-5 accent-green-600 rounded shrink-0"
+      />
+      <span className={`text-sm font-medium ${checked ? "text-green-800" : "text-gray-700"}`}>
+        {label}
+      </span>
+    </label>
+  );
+}
+
 export default function DemographicsStep({ data, update, onNext, onPrev }: Props) {
   const products = (data.dem7_products as string[] | undefined) || [];
 
@@ -44,12 +101,12 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
           ["dem6_frequency", DEMOGRAPHICS.frequency],
         ] as const
       ).map(([key, def]) => (
-        <fieldset key={key} className="mb-5">
-          <legend className="font-medium text-gray-700 mb-2">{def.label}</legend>
-          {def.options.map((opt) => (
-            <label key={opt} className="flex items-center gap-2 mt-1.5 cursor-pointer">
-              <input
-                type="radio"
+        <fieldset key={key} className="mb-6">
+          <legend className="font-semibold text-gray-800 mb-3 text-base">{def.label}</legend>
+          <div className="space-y-2">
+            {def.options.map((opt) => (
+              <RadioOption
+                key={opt}
                 name={key}
                 checked={data[key] === opt}
                 onChange={() => {
@@ -59,46 +116,44 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
                   }
                   update(upd);
                 }}
-                className="accent-green-600 w-4 h-4"
+                label={opt}
               />
-              <span className="text-sm">{opt}</span>
-            </label>
-          ))}
+            ))}
+          </div>
           {key === "dem4_region" && data.dem4_region === "Other" && (
             <input
               type="text"
               placeholder="Please specify your region"
               value={(data.dem4_region_other as string) || ""}
               onChange={(e) => update({ dem4_region_other: e.target.value })}
-              className="mt-2 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
             />
           )}
         </fieldset>
       ))}
 
       {/* Multi-select: products */}
-      <fieldset className="mb-5">
-        <legend className="font-medium text-gray-700 mb-2">
+      <fieldset className="mb-6">
+        <legend className="font-semibold text-gray-800 mb-3 text-base">
           {DEMOGRAPHICS.products.label}
         </legend>
-        {DEMOGRAPHICS.products.options.map((opt) => (
-          <label key={opt} className="flex items-center gap-2 mt-1.5 cursor-pointer">
-            <input
-              type="checkbox"
+        <div className="space-y-2">
+          {DEMOGRAPHICS.products.options.map((opt) => (
+            <CheckOption
+              key={opt}
               checked={products.includes(opt)}
               onChange={() => toggleProduct(opt)}
-              className="accent-green-600 w-4 h-4"
+              label={opt}
             />
-            <span className="text-sm">{opt}</span>
-          </label>
-        ))}
+          ))}
+        </div>
         {products.includes("Other") && (
           <input
             type="text"
             placeholder="Please specify"
             value={(data.dem7_other as string) || ""}
             onChange={(e) => update({ dem7_other: e.target.value })}
-            className="mt-2 w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+            className="mt-3 w-full border-2 border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500"
           />
         )}
       </fieldset>
@@ -106,15 +161,15 @@ export default function DemographicsStep({ data, update, onNext, onPrev }: Props
       <div className="flex justify-between mt-6">
         <button
           onClick={onPrev}
-          className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+          className="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
         >
           ← Back
         </button>
         <button
           onClick={onNext}
           disabled={!canProceed}
-          className="px-6 py-2.5 bg-green-600 text-white rounded-lg font-medium
-                     hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
+                     hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md"
         >
           Next →
         </button>

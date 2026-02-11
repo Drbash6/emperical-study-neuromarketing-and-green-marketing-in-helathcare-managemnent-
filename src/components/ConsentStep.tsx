@@ -8,6 +8,36 @@ interface Props {
   onNext: () => void;
 }
 
+function RadioCard({
+  name,
+  checked,
+  onChange,
+  label,
+}: {
+  name: string;
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+}) {
+  return (
+    <label
+      className={`flex items-center gap-3 p-3 rounded-lg border-2 cursor-pointer transition-all
+        ${checked ? "border-green-600 bg-green-50 shadow-sm" : "border-gray-300 bg-white hover:border-green-400 hover:bg-green-50/50"}`}
+    >
+      <input
+        type="radio"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        className="w-5 h-5 accent-green-600"
+      />
+      <span className={`text-sm font-medium ${checked ? "text-green-800" : "text-gray-700"}`}>
+        {label}
+      </span>
+    </label>
+  );
+}
+
 export default function ConsentStep({ data, update, onNext }: Props) {
   const consented = data.consented === "yes";
   const sq1 = data.sq1_purchased as string | undefined;
@@ -22,7 +52,7 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       </h2>
 
       {/* Consent */}
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6 text-sm text-gray-700 leading-relaxed">
+      <div className="bg-green-50 border-2 border-green-300 rounded-lg p-4 mb-6 text-sm text-gray-700 leading-relaxed">
         <p>
           You are invited to participate in an academic research study examining
           how consumers perceive and respond to environmental sustainability
@@ -44,29 +74,13 @@ export default function ConsentStep({ data, update, onNext }: Props) {
       </div>
 
       <fieldset className="mb-6">
-        <legend className="font-medium text-gray-700 mb-2">Consent</legend>
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input
-            type="radio"
-            name="consent"
-            checked={consented}
-            onChange={() => update({ consented: "yes" })}
-            className="accent-green-600 w-4 h-4"
-          />
-          <span>I consent to participate</span>
-        </label>
-        <label className="flex items-center gap-2 mt-2 cursor-pointer">
-          <input
-            type="radio"
-            name="consent"
-            checked={data.consented === "no"}
-            onChange={() => update({ consented: "no" })}
-            className="accent-green-600 w-4 h-4"
-          />
-          <span>I do not consent</span>
-        </label>
+        <legend className="font-semibold text-gray-800 mb-3 text-base">Consent</legend>
+        <div className="space-y-2">
+          <RadioCard name="consent" checked={consented} onChange={() => update({ consented: "yes" })} label="I consent to participate" />
+          <RadioCard name="consent" checked={data.consented === "no"} onChange={() => update({ consented: "no" })} label="I do not consent" />
+        </div>
         {data.consented === "no" && (
-          <p className="text-red-500 text-sm mt-2">
+          <p className="text-red-600 text-sm mt-2 font-medium bg-red-50 border border-red-200 rounded-lg p-2">
             You must consent to participate in this study.
           </p>
         )}
@@ -74,79 +88,54 @@ export default function ConsentStep({ data, update, onNext }: Props) {
 
       {/* SQ1 */}
       <fieldset className="mb-6">
-        <legend className="font-medium text-gray-700 mb-2">
+        <legend className="font-semibold text-gray-800 mb-3 text-base">
           SQ1. Have you purchased any pharmaceutical or nutraceutical product
           (e.g., over-the-counter medicine, vitamins, dietary supplements,
           herbal health products, probiotics) in the past 12 months?
         </legend>
-        <label className="flex items-center gap-2 cursor-pointer">
-          <input
-            type="radio"
-            name="sq1"
-            checked={sq1 === "yes"}
-            onChange={() => update({ sq1_purchased: "yes" })}
-            className="accent-green-600 w-4 h-4"
-          />
-          <span>Yes</span>
-        </label>
-        <label className="flex items-center gap-2 mt-2 cursor-pointer">
-          <input
-            type="radio"
-            name="sq1"
-            checked={sq1 === "no"}
-            onChange={() => update({ sq1_purchased: "no" })}
-            className="accent-green-600 w-4 h-4"
-          />
-          <span>No</span>
-        </label>
+        <div className="space-y-2">
+          <RadioCard name="sq1" checked={sq1 === "yes"} onChange={() => update({ sq1_purchased: "yes" })} label="Yes" />
+          <RadioCard name="sq1" checked={sq1 === "no"} onChange={() => update({ sq1_purchased: "no" })} label="No" />
+        </div>
         {sq1 === "no" && (
-          <p className="text-red-500 text-sm mt-2">
-            This survey requires participants who have purchased these products
-            in the past 12 months.
+          <p className="text-red-600 text-sm mt-2 font-medium bg-red-50 border border-red-200 rounded-lg p-2">
+            This survey requires participants who have purchased these products in the past 12 months.
           </p>
         )}
       </fieldset>
 
       {/* SQ2 */}
       <fieldset className="mb-6">
-        <legend className="font-medium text-gray-700 mb-2">
+        <legend className="font-semibold text-gray-800 mb-3 text-base">
           SQ2. Have you ever noticed environmental or sustainability claims
           (e.g., eco-labels, &quot;eco-friendly,&quot; &quot;sustainably
           sourced,&quot; green packaging) on any pharmaceutical or nutraceutical
           product?
         </legend>
-        {[
-          { value: "yes", label: "Yes" },
-          { value: "not_sure", label: "Not sure, but I may have" },
-          {
-            value: "no",
-            label:
-              'No, never (please answer based on your general expectations)',
-          },
-        ].map((opt) => (
-          <label
-            key={opt.value}
-            className="flex items-center gap-2 mt-2 cursor-pointer"
-          >
-            <input
-              type="radio"
+        <div className="space-y-2">
+          {[
+            { value: "yes", label: "Yes" },
+            { value: "not_sure", label: "Not sure, but I may have" },
+            { value: "no", label: "No, never (please answer based on your general expectations)" },
+          ].map((opt) => (
+            <RadioCard
+              key={opt.value}
               name="sq2"
               checked={sq2 === opt.value}
               onChange={() => update({ sq2_noticed: opt.value })}
-              className="accent-green-600 w-4 h-4"
+              label={opt.label}
             />
-            <span>{opt.label}</span>
-          </label>
-        ))}
+          ))}
+        </div>
       </fieldset>
 
       <div className="flex justify-end">
         <button
           onClick={onNext}
           disabled={!canProceed}
-          className="px-6 py-2.5 bg-green-600 text-white rounded-lg font-medium
+          className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
                      hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed
-                     transition-colors"
+                     transition-colors shadow-md"
         >
           Next →
         </button>

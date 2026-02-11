@@ -31,7 +31,7 @@ export default function LikertStep({
         </p>
       )}
       {section.instruction && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-5 text-sm text-gray-700">
+        <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-3 mb-5 text-sm text-gray-700">
           {section.instruction}
         </div>
       )}
@@ -40,10 +40,10 @@ export default function LikertStep({
         {section.items.map((item) => (
           <div
             key={item.code}
-            className="border border-gray-100 rounded-lg p-4 bg-gray-50"
+            className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm"
           >
             <p className="text-sm text-gray-800 mb-3">
-              <span className="font-semibold text-green-700">
+              <span className="font-bold text-green-700">
                 {item.code.toUpperCase()}
                 {item.reverse && " (R)"}
               </span>{" "}
@@ -56,11 +56,11 @@ export default function LikertStep({
                   <button
                     key={opt.value}
                     onClick={() => update({ [item.code]: opt.value })}
-                    className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-colors
+                    className={`px-4 py-2 rounded-lg text-sm font-semibold border-2 transition-all
                       ${
                         selected
-                          ? "bg-green-600 text-white border-green-600"
-                          : "bg-white text-gray-600 border-gray-300 hover:border-green-400"
+                          ? "bg-green-600 text-white border-green-600 shadow-md scale-105"
+                          : "bg-white text-gray-700 border-gray-300 hover:border-green-500 hover:bg-green-50"
                       }`}
                   >
                     {opt.value} - {opt.label}
@@ -75,15 +75,15 @@ export default function LikertStep({
       <div className="flex justify-between mt-6">
         <button
           onClick={onPrev}
-          className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+          className="px-6 py-3 border-2 border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
         >
           ← Back
         </button>
         <button
           onClick={onNext}
           disabled={!allAnswered}
-          className="px-6 py-2.5 bg-green-600 text-white rounded-lg font-medium
-                     hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="px-8 py-3 bg-green-600 text-white rounded-lg font-bold text-base
+                     hover:bg-green-700 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-md"
         >
           Next →
         </button>
